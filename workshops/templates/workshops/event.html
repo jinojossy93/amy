@@ -151,7 +151,6 @@
 <p>No tasks.</p>
 {% endif %}
 
-{% block sponsorships %}
 {% with sponsorships=event.sponsorship_set.all %}
 {% if sponsorships %}
 <h3>Sponsors</h3>
@@ -171,7 +170,6 @@
 <p>No sponsors.</p>
 {% endif %}
 {% endwith %}
-{% endblock sponsorships %}
 
 <div class="clearfix">
   <p class="edit-object pull-left">
