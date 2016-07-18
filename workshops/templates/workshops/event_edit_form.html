@@ -21,6 +21,7 @@
     </div>
   </div>
   <div role="tabpanel" class="tab-pane" id="tasks">
+    {% block task_tab %}
     {% crispy task_form form_helper_with_add %}
     {% if tasks %}
     <table class="table table-striped">
@@ -44,10 +45,14 @@
     {% else %}
     <p>No tasks.</p>
     {% endif %}
+    {% endblock task_tab %}
   </div>
   <div role="tabpanel" class="tab-pane" id="sponsors">
+    {% block sponsor_tab %}
     {% crispy sponsor_form form_helper_with_add %}
+
     {% if object.sponsorship_set.all %}
+    {% block sponsor_list %}
     <table class="table table-striped">
     <tr>
       <th>organization</th>
@@ -56,7 +61,7 @@
     </tr>
     {% for sponsorship in object.sponsorship_set.all %}
     <tr>
-      <td><a href="{{ sponsor.organization.get_absolute_url }}">{{ sponsorship.organization }}</a>
+      <td><a href="{{ sponsorship.organization.get_absolute_url }}">{{ sponsorship.organization }}</a>
       <td>{{ sponsorship.amount|default:"—" }}</td>
       <td>
         <form action="{% url 'sponsorship_delete' pk=sponsorship.id %}" onsubmit='return confirm("Are you sure you wish to remove \"{{ sponsorship }}\" from {{ object }}?")' method="POST">
@@ -67,9 +72,11 @@
     </tr>
     {% endfor %}
     </table>
+    {% endblock sponsor_list %}
     {% else %}
     <p>No sponsors.</p>
     {% endif %}
+    {% endblock sponsor_tab %}
   </div>
 {% endblock %}
 
